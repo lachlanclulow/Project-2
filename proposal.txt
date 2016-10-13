@@ -1,0 +1,28 @@
+Type of Application:
+Top Down Survival Space Shooter
+The space ship is passing through an asteroid field, you must avoid or destroy asteroids that pass by
+You have to collect energy to keep the lights on your ship functioning to see the asteroids clearly
+
+Hardware Inputs:
+Keyboard/Tough - Left and Right Arrow keys or Left and Right portions of the screen control motion
+Mouse/Accelerometer - Controls the direction of light beam from ship
+
+Visualisation:
+- 3-D spaceship and asteroids/debris. 
+- The camera is othogonal directed down at the top of the ship, asteroids enter from the top and 
+sides of field of view. 
+- Light beams from the spaceship help to illuminate the asteroids. 
+- Fog effect to clearly see the edges of the beams of light comming from the ship.
+- 1000 - 2000 polygons in a scene at the hardest difficulty (highest number of asteroids in scene)
+
+Milstones:
+- Create shader for default lighting effect
+- Work on touch input
+- Work on accelerometer input
+- Define controls for player behaviour
+- Define asteroid behaviour (collisions, spawn rate)
+- Define powerup behaviour (collisions, spawn rate)
+- Compose scene, boundaries, add lighting, play test
+- Create and insert object models (player model, several asteroid models, powerup model)
+- Add textures/colours/backdrops
+- Add extra features (levels/waves, more powerups, basic story)
