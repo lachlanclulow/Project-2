@@ -1,21 +1,46 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//https://unity3d.com/earn/tutorials/projects/space-shooter/moving-the-player?playlist=17147
+//https://unity3d.com/learn/tutorials/projects/space-shooter/shooting-shots?playlist=17147
+[System.Serializable]
+public class Boundary
+{
+    public float xMin, xMax, zMin, zMax;
+}
+
 public class PlayerController : MonoBehaviour {
 
-    private Transform playerTransform;
+    private PlayerGameLogic logicScript;
+    private Rigidbody playerRigidbody;
+    public float tilt;
     public float maxSpeed = 10f;
     public float accelerometerSensitivity;
+    public GameObject player;
+    public Boundary boundary;
+    public Transform Cannon;
+
+    private float nextFire = 0;
 
 	// Use this for initialization
 	void Start () {
-        playerTransform = GetComponent<Transform>();
+        logicScript = player.GetComponent<PlayerGameLogic>();
+        playerRigidbody = GetComponent<Rigidbody>();
+        nextFire = Time.time;
+    }
 
+    void Update ()
+    {
+        GunBehaviour gun = logicScript.retGun().GetComponent<GunBehaviour>();
 
+        if (Input.GetKey(KeyCode.Space) && Time.time > nextFire)
+        {
+            Instantiate(gun, Cannon.position, Cannon.rotation);
+            nextFire = Time.time + gun.fireRate;
+        }
     }
 		
-	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
         // Keyboard Input
         float movementX = Input.GetAxis("Horizontal");
         float movementZ = Input.GetAxis("Vertical");
@@ -25,6 +50,18 @@ public class PlayerController : MonoBehaviour {
         float accMovementZ = Input.acceleration.y;
 
         // Apply Input
-        playerTransform.position += new Vector3(movementX + accMovementX, 0, movementZ + accMovementZ) * maxSpeed * Time.deltaTime;
+        //https://unity3d.com/earn/tutorials/projects/space-shooter/moving-the-player?playlist=17147
+  
+        Vector3 movement = new Vector3(movementX + accMovementX, 0.0f, movementZ + accMovementZ);
+        playerRigidbody.velocity = movement * maxSpeed;
+
+        playerRigidbody.position = new Vector3
+        (
+            Mathf.Clamp(playerRigidbody.position.x, boundary.xMin, boundary.xMax),
+            0.0f,
+            Mathf.Clamp(playerRigidbody.position.z, boundary.zMin, boundary.zMax)
+        );
+
+        playerRigidbody.rotation = Quaternion.Euler(0.0f, 0.0f, playerRigidbody.velocity.x * -tilt);
     }
 }

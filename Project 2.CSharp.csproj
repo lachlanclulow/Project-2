@@ -78,9 +78,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\AsteroidSourceScript.cs" />
+    <Compile Include="Assets\Scripts\BoundaryScript.cs" />
     <Compile Include="Assets\Scripts\DestroyObject.cs" />
-    <Compile Include="Assets\Scripts\LightController.cs" />
+    <Compile Include="Assets\Scripts\GameScript.cs" />
+    <Compile Include="Assets\Scripts\GunBehaviour.cs" />
     <Compile Include="Assets\Scripts\ObjectMotion.cs" />
+    <Compile Include="Assets\Scripts\PlayerCollide.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\PlayerGameLogic.cs" />
     <Compile Include="Assets\Scripts\Spawner.cs" />

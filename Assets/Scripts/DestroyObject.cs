@@ -3,22 +3,27 @@ using System.Collections;
 
 public class DestroyObject : MonoBehaviour {
 
-    private int edge = 13;
+    public PlayerGameLogic logicScript;
 
-	// Update is called once per frame
-	void Update () {
-		if (transform.position.z < -edge)
-        {
-            Destroy(this.gameObject);
-        }
-	}
-
-    void OnCollisionEnter(Collision coll)
+    void Start ()
     {
-        if (gameObject.name == "Wall")
+        logicScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerGameLogic>();
+    }
+
+    void OnTriggerEnter(Collider coll)
+    {
+        if (coll.gameObject.name == "Boundary" || 
+            coll.gameObject.name == "Player" ||
+            coll.gameObject.name == gameObject.name ||
+            coll.gameObject.name == "HealthPowerUp(Clone)" ||
+            coll.gameObject.name == "LightPowerUp(Clone)" ||
+            coll.gameObject.name == "GunPowerUp(Clone)")
         {
-            Destroy(this.gameObject);
+            return;
         }
+        logicScript.incScore();
+        Destroy(coll.gameObject);
+        Destroy(gameObject);
     }
 
 }
